@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, escape
  
 app = Flask(__name__)
 
+version = None    
 
 @app.route('/', methods=['GET'])
 def main():
@@ -9,15 +10,22 @@ def main():
     return jsonify(msg)
 
 
-@app.route('/config', methods=['POST'])
+
+@app.route('/config', methods=['GET', 'POST'])
 def getData():
-    data = request.json
-    version = escape(data.get('version', None))
-    if not version:
-        msg = {'message': 'bad request'}
-        return jsonify(msg), 400
-    msg = {'message': 'success', 'data': data}
-    return jsonify(msg)
+    global version
+    if request.method == 'POST':
+        data = request.json
+        v = data.get('version', None)
+        if not v:
+            msg = {'message': 'bad request'}
+            return jsonify(msg), 400
+        version = v
+        msg = {'message': 'success', 'version': version}
+        return jsonify(msg)
+    elif request.method == 'GET':
+        msg = {'message': 'success', 'version': version}
+        return jsonify(msg)
 
 # app.add_url_rule("/", view_func=main, methods=['GET'])
 
