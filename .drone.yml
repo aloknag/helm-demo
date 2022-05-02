@@ -7,8 +7,10 @@ steps:
   image: plugins/docker
   settings:
     registry: hub.docker.com
-    username: $DOCKERHUB_USERNAME
-    password: $DOCKERHUB_PASSWORD
+    username: 
+      from_secret: DOCKERHUB_USERNAME
+    password: 
+      from_secret: DOCKERHUB_PASSWORD
     repo: aloknicole/app
     tags: latest
     when:
