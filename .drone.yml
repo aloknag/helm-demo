@@ -13,4 +13,7 @@ steps:
     repo: aloknicole/app
     tags: latest
     when:
-      branch: main
+      branch: 
+       - main
+      event:
+       - push 
