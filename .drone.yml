@@ -1,0 +1,14 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: docker-build-publish
+  image: plugins/docker
+  settings:
+    username: $DOCKERHUB_USERNAME
+    password: $DOCKERHUB_PASSWORD
+    repo: aloknicole/app
+    tags: latest
+    when:
+      branch: main
