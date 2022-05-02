@@ -6,6 +6,7 @@ steps:
 - name: docker-build-publish
   image: plugins/docker
   settings:
+    registry: hub.docker.com
     username: $DOCKERHUB_USERNAME
     password: $DOCKERHUB_PASSWORD
     repo: aloknicole/app
